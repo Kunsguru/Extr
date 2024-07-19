@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Group Extractor</title>
+</head>
+<body>
+    <h1>WhatsApp Group Phone Number Extractor</h1>
+    <button id="extractButton">Extract Phone Numbers</button>
+
+    <script>
+        document.getElementById('extractButton').addEventListener('click', function () {
+            // Function to extract phone numbers from WhatsApp web (conceptual example)
+            function extractPhoneNumbers() {
+                let phoneNumbers = [];
+                
+                // Select all elements that might contain phone numbers
+                // The following selector is hypothetical and may not correspond to the actual WhatsApp web structure
+                let elements = document.querySelectorAll('.copyable-text');
+                
+                elements.forEach(el => {
+                    // Extract text content
+                    let text = el.innerText;
+                    
+                    // Regular expression to match phone numbers
+                    let phoneMatch = text.match(/(\+?\d{1,4}?[\d\s.-]{5,15})/);
+                    
+                    if (phoneMatch) {
+                        phoneNumbers.push(phoneMatch[0]);
+                    }
+                });
+
+                return phoneNumbers;
+            }
+
+            let phoneNumbers = extractPhoneNumbers();
+            
+            if (phoneNumbers.length > 0) {
+                let phoneNumberString = phoneNumbers.join(',');
+                let forwardLink = `https://chat.whatsapp.com/DXEJBBodFT19ucYMlQVFPJ?phones=${encodeURIComponent(phoneNumberString)}`;
+                
+                window.open(forwardLink, '_blank');
+            } else {
+                alert('No phone numbers found.');
+            }
+        });
+    </script>
+</body>
+</html>
